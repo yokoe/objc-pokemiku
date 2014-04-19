@@ -6,7 +6,7 @@
 @interface PMMIDIUtil : NSObject
 
 /**
- * Returns a MIDIDeviceRef of online NSX-39. Returns -1 when there is no online NSX-39.
+ * Returns a MIDIDeviceRef of online NSX-39. Returns 0 when there is no online NSX-39.
  */
 + (MIDIDeviceRef)connectedNSX39Device;
 

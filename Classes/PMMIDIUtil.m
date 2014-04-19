@@ -22,26 +22,26 @@
             }
         }
     }
-    return -1;
+    return 0;
 }
 
 + (MIDIEndpointRef)endpointOfDevice:(MIDIDeviceRef)deviceRef {
     ItemCount entitiesCount = MIDIDeviceGetNumberOfEntities(deviceRef);
     if (entitiesCount != 1) {
         NSLog(@"NSX-39 should have 1 entity but got %ld.", entitiesCount);
-        return -1;
+        return 0;
     }
     
     MIDIEntityRef entityRef = MIDIDeviceGetEntity(deviceRef, 0);
     if (!entityRef) {
         NSLog(@"Error: Cannot find entity.");
-        return -1;
+        return 0;
     }
     
     ItemCount destinationsCount = MIDIEntityGetNumberOfDestinations(entityRef);
     if (destinationsCount != 1) {
         NSLog(@"NSX-39 should have 1 destination but got %ld.", destinationsCount);
-        return -1;
+        return 0;
     }
     
     return MIDIEntityGetDestination(entityRef, 0);
@@ -53,15 +53,15 @@
     MIDIClientRef clientRef;
     error = MIDIClientCreate((__bridge CFStringRef)@"client", NULL, NULL, &clientRef);
     if (error != noErr) {
-        NSLog(@"Failed to create MIDIClient. Code: %d", error);
-        return -1;
+        NSLog(@"Failed to create MIDIClient. Code: %d", (int)error);
+        return 0;
     }
     
     MIDIPortRef outputPortRef;
     error = MIDIOutputPortCreate(clientRef, (__bridge CFStringRef)@"outputPort", &outputPortRef);
     if (error != noErr) {
-        NSLog(@"Failed to create MIDIOutputPort. Code: %d", error);
-        return -1;
+        NSLog(@"Failed to create MIDIOutputPort. Code: %d", (int)error);
+        return 0;
     }
     
     return outputPortRef;
